@@ -24,23 +24,24 @@ define('WP_DEFAULT_THEME', 'mytheme');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'database_name_here');
+if ($_SERVER['REMOTE_ADDR']=='127.0.0.1') {
+    define('WP_ENV', 'development');
+} else {
+    define('WP_ENV', 'production');
+}
 
-/** MySQL database username */
-define('DB_USER', 'username_here');
-
-/** MySQL database password */
-define('DB_PASSWORD', 'password_here');
-
-/** MySQL hostname */
-define('DB_HOST', 'localhost');
-
-/** Database Charset to use in creating database tables. */
-define('DB_CHARSET', 'utf8');
-
-/** The Database Collate type. Don't change this if in doubt. */
-define('DB_COLLATE', '');
-
+// MySQL settings - You can get this info from your web host //
+if (WP_ENV == 'development') {
+    define('DB_NAME', 'mydb-dev');
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', '');
+    define('DB_HOST', 'localhost');
+} else {
+    define('DB_NAME', 'mydb-prod');
+    define('DB_USER', 'username');
+    define('DB_PASSWORD', 'pasdword');
+    define('DB_HOST', 'mysql.mysite.com');
+} 
 /**#@+
  * Authentication Unique Keys and Salts.
  *
